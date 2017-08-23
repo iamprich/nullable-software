@@ -1,0 +1,346 @@
+@import "_variables.scss";
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    color: #fff;
+    padding-top: 50px;
+    background: radial-gradient(black 15%, transparent 16%) 0 0,
+    radial-gradient(black 15%, transparent 16%) 8px 8px,
+    radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 0 1px,
+    radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 8px 9px;
+    background-color: #282828;
+    background-size: 16px 16px;
+}
+
+h1 {
+    @extend h2;
+    font-size: 5em;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 35px;
+}
+
+p {
+    margin: 0 0 25px;
+    font-size: 18px;
+    line-height: 1.5;
+    @media(min-width: 768px) {
+        margin: 0 0 35px;
+        font-size: 20px;
+        line-height: 1.6;
+    }
+}
+
+.light {
+    font-weight: 400;
+}
+
+a {
+    color: $medium-gray !important;
+}
+
+.logo {
+    display: inline-block;
+    height: 100%;
+    width: 50px;
+    margin-right: 14px;
+}
+
+.navbar {
+    border: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    li a {
+        border-bottom: 4px solid transparent;
+        transition: all 0.2s linear;
+        &:after {
+            content: "";
+            position: absolute;
+            bottom: 25%;
+            left: 0;
+            height: 50%;
+            width: 4px;
+            opacity: 0;
+            transition: all 0.2s linear;
+        }
+        &.about {
+            &:hover {
+                color: $green !important;
+                &:after {
+                    content: "";
+                    background: $green;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 4px;
+                    opacity: 1;
+                }
+            }
+        }
+        &.services {
+            &:hover {
+                color: $blue !important;
+                &:after {
+                    content: "";
+                    background: $blue;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 4px;
+                    opacity: 1;
+                }
+            }
+        }
+        &.connect {
+            &:hover {
+                color: $red !important;
+                &:after {
+                    content: "";
+                    background: $red;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 4px;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+li.active {
+    a.about {
+        color: $green !important;
+        background-color: transparent !important;
+        border-bottom: 4px solid $green;
+    }
+    a.services {
+        color: $blue !important;
+        background-color: transparent !important;
+        border-bottom: 4px solid $blue;
+    }
+    a.connect {
+        color: $red !important;
+        background-color: transparent !important;
+        border-bottom: 4px solid $red;
+    }
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: $green;
+}
+
+.section-box {
+    margin: 140px 0;
+}
+
+.about-section {
+    border-right: 4px solid $green;
+}
+
+.services-section {
+    border-right: 4px solid $blue;
+}
+
+.connect-section {
+    border-right: 4px solid $red;
+}
+
+.glyphicon-chevron-up {
+    color: $green;
+    font-size: 50px;
+    transition: color 0.2s linear;
+    &:hover {
+        color: darken($green, 10%);
+    }
+}
+
+.services-section ul {
+    @extend p;
+}
+
+button {
+    background: none;
+    border: 0;
+    box-sizing: border-box;
+    margin: 1em;
+    padding: 1.5em 1.5em; // Using inset box-shadow instead of border for sizing simplicity
+    box-shadow: inset 0 0 0 4px white;
+    color: white;
+    font-size: inherit;
+    font-weight: 700; // Required, since we're setting absolute on pseudo-elements
+    position: relative;
+    vertical-align: middle;
+
+    &::before,
+    &::after {
+        box-sizing: inherit;
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.draw {
+    transition: color 0.25s;
+
+    &::before,
+    &::after {
+        // Set border to invisible, so we don't see a 4px border on a 0x0 element before the transition starts
+        border: 4px solid transparent;
+        width: 0;
+        height: 0;
+    } // This covers the top & right borders (expands right, then down)
+    &::before {
+        top: 0;
+        left: 0;
+    } // And this the bottom & left borders (expands left, then up)
+    &::after {
+        bottom: 0;
+        right: 0;
+    }
+
+    &:hover {
+        color: $red;
+    } // Hover styles
+    &:hover::before,
+    &:hover::after {
+        width: 100%;
+        height: 100%;
+    }
+
+    &:hover::before {
+        border-top-color: $red; // Make borders visible
+        border-right-color: $red;
+        transition: width 0.25s ease-out, // Width expands first
+        height 0.25s ease-out 0.25s; // And then height
+    }
+
+    &:hover::after {
+        border-bottom-color: $red; // Make borders visible
+        border-left-color: $red;
+        transition: border-color 0s ease-out 0.5s, // Wait for ::before to finish before showing border
+        width 0.25s ease-out 0.5s, // And then exanding width
+        height 0.25s ease-out 0.75s; // And finally height
+    }
+}
+
+.meet {
+
+    &:hover {
+        color: $green;
+    } // Start ::after in same position as ::before
+    &::after {
+        top: 0;
+        left: 0;
+    } // Change colors
+    &:hover::before {
+        border-top-color: $green;
+        border-right-color: $green;
+    }
+
+    &:hover::after {
+        border-bottom-color: $green;
+        border-left-color: $green;
+        transition: // Animate height first, then width
+        height 0.25s ease-out,
+        width 0.25s ease-out 0.25s;
+    }
+}
+
+.fakeButtons {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    position: relative;
+    top: 4px;
+    left: 6px;
+    background-color: #ff3b47;
+    border-color: #9d252b;
+    display: inline-block;
+}
+
+.fakeMinimize {
+    left: 11px;
+    background-color: #ffc100;
+    border-color: #9d802c;
+}
+
+.fakeZoom {
+    left: 16px;
+    background-color: #00d742;
+    border-color: #049931;
+}
+
+.fakeMenu {
+    width: 500px;
+    box-sizing: border-box;
+    height: 25px;
+    background-color: #bbb;
+    margin: 0 auto;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.fakeScreen {
+    background-color: #151515;
+    box-sizing: border-box;
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.blink {
+    animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+    to {
+        visibility: hidden;
+    }
+}
+
+// Slide Animation
+.slideanim {
+    visibility: hidden;
+}
+
+.slide {
+    /* The name of the animation */
+    animation-name: slide;
+    -webkit-animation-name: slide;
+    /* The duration of the animation */
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    /* Make the element visible */
+    visibility: visible;
+}
+
+@keyframes slide {
+    0% {
+        opacity: 0;
+        transform: translateY(70%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
