@@ -1,20 +1,26 @@
+"use strict";
+
+// Collapse Nav
+
+$(window).scroll(collapseNavbar);
+$(document).ready(collapseNavbar);
+
 function collapseNavbar() {
     if ($(".navbar").offset().top > 50) {
         $(".navbar-fixed-top").addClass("top-nav-collapse");
     } else {
         $(".navbar-fixed-top").removeClass("top-nav-collapse");
     }
-}
-
-$(window).scroll(collapseNavbar);
-$(document).ready(collapseNavbar);
+};
 
 // Closes the Responsive Menu on Menu Item Click
+
 $('.navbar-collapse ul li a').click(function() {
     $(".navbar-collapse").collapse('hide');
 });
 
-// jQuery for page scrolling feature - requires jQuery Easing plugin
+// jQuery Easing
+
 $(function() {
     $('a.page-scroll').bind('click', function(event) {
         var $anchor = $(this);
@@ -22,10 +28,12 @@ $(function() {
             scrollTop: $($anchor.attr('href')).offset().top
         }, 1250, 'easeInOutExpo');
         event.preventDefault();
+
     });
 });
 
 // Slide Animation
+
 $(window).scroll(function() {
     $(".slideanim").each(function() {
         var pos = $(this).offset().top;
@@ -36,3 +44,26 @@ $(window).scroll(function() {
         }
     });
 });
+
+// Header Color Scroll
+
+$(document).scroll(function() {
+    var aboutScroll = $('#about').offset();
+    var serviceScroll = $('#services').offset();
+    var connectScroll = $('#connect').offset();
+    var y = $(this).scrollTop() + 100;
+
+    if (y >= aboutScroll.top && y < serviceScroll.top) {
+        $(".navbar").css("border-top-color", "#3CBE56");
+    } else if (y >= serviceScroll.top && y < connectScroll.top) {
+        $(".navbar").css("border-top-color", "#1192FE");
+    } else if (y >= connectScroll.top) {
+        $(".navbar").css("border-top-color", "#DD2D21");
+    } else {
+        $(".navbar").css("border-top-color", "#fff");
+    }
+});
+
+// Terminal Date
+
+$("#terminal-date").text("Last login: " + new Date() + " on ttys000");

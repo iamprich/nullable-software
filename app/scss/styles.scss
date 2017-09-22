@@ -1,5 +1,23 @@
-@import "_variables.scss";
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Raleway|Roboto');
+// Variables
+$green: rgb(60, 190, 86);
+$blue: rgb(17, 146, 254);
+$red: rgb(221, 45, 33);
+$dark-gray: rgb(51, 51, 51);
+$medium-gray: lighten(rgb(51, 51, 51), 25%);
+$light-gray: lighten(rgb(51, 51, 51), 50%);
+// Mixins
+@mixin heading {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    line-height: 1.5;
+    margin: 0 0 35px;
+}
 
+// Global styles
 * {
     box-sizing: border-box;
 }
@@ -7,77 +25,118 @@
 body {
     color: #fff;
     padding-top: 50px;
-    background: radial-gradient(black 15%, transparent 16%) 0 0,
-    radial-gradient(black 15%, transparent 16%) 8px 8px,
-    radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 0 1px,
-    radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 8px 9px;
     background-color: #282828;
     background-size: 16px 16px;
 }
 
-h1 {
-    @extend h2;
-    font-size: 5em;
-}
-
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin: 0 0 35px;
+h1, h2, h3, h4, h5, h6 {
+    @include heading;
 }
 
 p {
+    font-family: 'Raleway', sans-serif;
     margin: 0 0 25px;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 1.5;
     @media(min-width: 768px) {
         margin: 0 0 35px;
-        font-size: 20px;
-        line-height: 1.6;
+        font-size: 18px;
+    }
+}
+
+.section-header {
+    margin-bottom: 2em;
+}
+
+@each $name, $color in (green, $green), (blue, $blue), (red, $red) {
+    .underline-#{$name} {
+        border-bottom: 2px solid $color;
     }
 }
 
 .light {
-    font-weight: 400;
+    font-weight: 300;
+}
+
+.page-header {
+    position: relative;
+    text-shadow: 2px 2px 22px $green;
+    height: 200px;
+    margin: 0 auto;
+    background: {
+        color: #000116;
+        image: url(https://sensorstechforum.com/wp-content/uploads/2016/05/hacker-sensorstechforum.jpg);
+        repeat: no-repeat;
+        size: contain;
+        position: left;
+    }
+    >h1 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #f8f8f8;
+    }
 }
 
 a {
     color: $medium-gray !important;
 }
 
-.logo {
-    display: inline-block;
-    height: 100%;
-    width: 50px;
-    margin-right: 14px;
+.qr-code {
+    height: 200px;
+    width: 200px;
+}
+
+.navbar-brand {
+    color: $medium-gray !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    transition: 0.2s linear;
+    &:hover {
+        color: darken($medium-gray, 10%) !important;
+    }
 }
 
 .navbar {
-    border: none;
-    font-weight: 600;
+    transition: all 0.2s linear;
+    border-top: 4px solid #fff;
+    border-bottom: none;
+}
+
+.nav {
+    font-weight: 700;
     text-transform: uppercase;
     li a {
         border-bottom: 4px solid transparent;
         transition: all 0.2s linear;
-        &:after {
+        &:before {
             content: "";
             position: absolute;
-            bottom: 25%;
+            bottom: 75%;
             left: 0;
-            height: 50%;
-            width: 4px;
+            height: 100%;
+            width: 8px;
             opacity: 0;
             transition: all 0.2s linear;
+        }
+        @media (min-width: 768px) {
+            &:after {
+                content: "";
+                position: absolute;
+                bottom: 75%;
+                right: 0;
+                height: 100%;
+                width: 8px;
+                opacity: 0;
+                transition: all 0.2s linear;
+            }
         }
         &.about {
             &:hover {
                 color: $green !important;
-                &:after {
+                &:before {
                     content: "";
                     background: $green;
                     position: absolute;
@@ -87,12 +146,24 @@ a {
                     width: 4px;
                     opacity: 1;
                 }
+                @media (min-width: 768px) {
+                    &:after {
+                        content: "";
+                        background: $green;
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        height: 100%;
+                        width: 4px;
+                        opacity: 1;
+                    }
+                }
             }
         }
         &.services {
             &:hover {
                 color: $blue !important;
-                &:after {
+                &:before {
                     content: "";
                     background: $blue;
                     position: absolute;
@@ -102,12 +173,24 @@ a {
                     width: 4px;
                     opacity: 1;
                 }
+                @media (min-width: 768px) {
+                    &:after {
+                        content: "";
+                        background: $blue;
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        height: 100%;
+                        width: 4px;
+                        opacity: 1;
+                    }
+                }
             }
         }
         &.connect {
             &:hover {
                 color: $red !important;
-                &:after {
+                &:before {
                     content: "";
                     background: $red;
                     position: absolute;
@@ -117,48 +200,101 @@ a {
                     width: 4px;
                     opacity: 1;
                 }
+                @media (min-width: 768px) {
+                    &:after {
+                        content: "";
+                        background: $red;
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        height: 100%;
+                        width: 4px;
+                        opacity: 1;
+                    }
+                }
             }
         }
     }
 }
 
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #282828;
+}
+
 li.active {
     a.about {
         color: $green !important;
-        background-color: transparent !important;
-        border-bottom: 4px solid $green;
     }
     a.services {
         color: $blue !important;
-        background-color: transparent !important;
-        border-bottom: 4px solid $blue;
     }
     a.connect {
         color: $red !important;
-        background-color: transparent !important;
-        border-bottom: 4px solid $red;
+    }
+    @media (min-width: 768px) {
+        a.about {
+            color: $green !important;
+            filter: brightness(104%);
+            transform: scale(1.05);
+            background-color: rgba($dark-gray, 0.01) !important;
+            border-bottom: 4px solid $green;
+        }
+        a.services {
+            color: $blue !important;
+            filter: brightness(104%);
+            transform: scale(1.05);
+            background-color: rgba($dark-gray, 0.01) !important;
+            border-bottom: 4px solid $blue;
+        }
+        a.connect {
+            color: $red !important;
+            filter: brightness(104%);
+            transform: scale(1.05);
+            background-color: rgba($dark-gray, 0.01) !important;
+            border-bottom: 4px solid $red;
+        }
     }
 }
 
-.navbar-default .navbar-toggle .icon-bar {
-    background-color: $green;
+.color-bg {
+    padding: 2px 2px 0 2px;
+    &-blue {
+        @extend .color-bg;
+        background-color: $blue;
+    }
+    &-red {
+        @extend .color-bg;
+        background-color: $red;
+    }
+    &-green {
+        @extend .color-bg;
+        background-color: $green;
+    }
 }
 
 .section-box {
-    margin: 140px 0;
+    height: auto;
+    padding: {
+        top: 25px;
+        bottom: 50px
+    }
 }
 
-.about-section {
-    border-right: 4px solid $green;
-}
+.about-section {}
 
 .services-section {
-    border-right: 4px solid $blue;
+    background-color: $dark-gray;
+    box-shadow: 0px 0px 8px rgba($light-gray, 0.35);
+    ul {
+        list-style: none;
+        @extend p;
+        span {
+            margin-right: 10px;
+        }
+    }
 }
 
-.connect-section {
-    border-right: 4px solid $red;
-}
+.connect-section {}
 
 .glyphicon-chevron-up {
     color: $green;
@@ -169,25 +305,25 @@ li.active {
     }
 }
 
-.services-section ul {
-    @extend p;
+.glyphicon-check {
+    filter: brightness(90%);
 }
 
-button {
+.custom-button {
     background: none;
     border: 0;
+    height: auto;
+    width: 125px;
     box-sizing: border-box;
     margin: 1em;
     padding: 1.5em 1.5em; // Using inset box-shadow instead of border for sizing simplicity
-    box-shadow: inset 0 0 0 4px white;
-    color: white;
+    box-shadow: inset 0 0 0 4px $medium-gray;
+    color: #fff;
     font-size: inherit;
     font-weight: 700; // Required, since we're setting absolute on pseudo-elements
     position: relative;
     vertical-align: middle;
-
-    &::before,
-    &::after {
+    &::before, &::after {
         box-sizing: inherit;
         content: '';
         position: absolute;
@@ -198,9 +334,7 @@ button {
 
 .draw {
     transition: color 0.25s;
-
-    &::before,
-    &::after {
+    &::before, &::after {
         // Set border to invisible, so we don't see a 4px border on a 0x0 element before the transition starts
         border: 4px solid transparent;
         width: 0;
@@ -214,26 +348,22 @@ button {
         bottom: 0;
         right: 0;
     }
-
     &:hover {
-        color: $red;
+        color: $light-gray;
     } // Hover styles
-    &:hover::before,
-    &:hover::after {
+    &:hover::before, &:hover::after {
         width: 100%;
         height: 100%;
     }
-
     &:hover::before {
-        border-top-color: $red; // Make borders visible
-        border-right-color: $red;
+        border-top-color: $light-gray; // Make borders visible
+        border-right-color: $light-gray;
         transition: width 0.25s ease-out, // Width expands first
         height 0.25s ease-out 0.25s; // And then height
     }
-
     &:hover::after {
-        border-bottom-color: $red; // Make borders visible
-        border-left-color: $red;
+        border-bottom-color: $light-gray; // Make borders visible
+        border-left-color: $light-gray;
         transition: border-color 0s ease-out 0.5s, // Wait for ::before to finish before showing border
         width 0.25s ease-out 0.5s, // And then exanding width
         height 0.25s ease-out 0.75s; // And finally height
@@ -241,28 +371,26 @@ button {
 }
 
 .meet {
-
     &:hover {
-        color: $green;
+        color: $light-gray;
     } // Start ::after in same position as ::before
     &::after {
         top: 0;
         left: 0;
     } // Change colors
     &:hover::before {
-        border-top-color: $green;
-        border-right-color: $green;
+        border-top-color: $light-gray;
+        border-right-color: $light-gray;
     }
-
     &:hover::after {
-        border-bottom-color: $green;
-        border-left-color: $green;
+        border-bottom-color: $light-gray;
+        border-left-color: $light-gray;
         transition: // Animate height first, then width
-        height 0.25s ease-out,
-        width 0.25s ease-out 0.25s;
+        height 0.25s ease-out, width 0.25s ease-out 0.25s;
     }
 }
 
+// Terminal Window
 .fakeButtons {
     height: 12px;
     width: 12px;
@@ -289,8 +417,7 @@ button {
 }
 
 .fakeMenu {
-    width: 500px;
-    box-sizing: border-box;
+    width: auto;
     height: 25px;
     background-color: #bbb;
     margin: 0 auto;
@@ -299,21 +426,23 @@ button {
 }
 
 .fakeScreen {
+    color: lime;
+    font-family: monaco;
     background-color: #151515;
-    box-sizing: border-box;
-    width: 500px;
+    width: auto;
     margin: 0 auto;
     padding: 20px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
+// Blink Animation
 .blink {
     animation: blink 1s steps(2, start) infinite;
 }
 
 @keyframes blink {
-    to {
+    100% {
         visibility: hidden;
     }
 }
@@ -324,13 +453,9 @@ button {
 }
 
 .slide {
-    /* The name of the animation */
     animation-name: slide;
-    -webkit-animation-name: slide;
-    /* The duration of the animation */
     animation-duration: 1s;
-    -webkit-animation-duration: 1s;
-    /* Make the element visible */
+    animation-fill-mode: forwards;
     visibility: visible;
 }
 

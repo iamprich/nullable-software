@@ -27,6 +27,7 @@ gulp.task('browserSync', function() {
 gulp.task('sass', function() {
     return gulp.src('app/scss/**/*.scss') // Gets all files ending with .scss in app/scss and children dirs
         .pipe(sass().on('error', sass.logError)) // Passes it through a gulp-sass, log errors to console
+        .pipe(autoprefixer('last 2 versions'))
         .pipe(gulp.dest('app/css')) // Outputs it in the css folder
         .pipe(browserSync.reload({ // Reloading with Browser Sync
             stream: true
@@ -48,7 +49,9 @@ gulp.task('useref', function() {
 
     return gulp.src('app/*.html')
         .pipe(useref())
-        .pipe(gulpIf('*.js', uglify()))
+        .pipe(gulpIf('*.js', uglify().on('error', function(e) {
+            console.log(e);
+        })))
         .pipe(gulpIf('*.css', cssnano()))
         .pipe(gulp.dest('dist'));
 });
